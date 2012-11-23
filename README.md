@@ -26,5 +26,5 @@ native interfaces!
 I'll be giving additional details in the [wiki][2] as my idea gets
 defined.
 
-[2]: ./wiki
+[2]: ./NoteDown/wiki
 
