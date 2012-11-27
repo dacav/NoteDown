@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
 
-__all__ = ['notedown_gui']
+def load (conf):
+    if conf.toolkit == 'gtk':
+        from . import gtk
+        return gtk.Main(conf)
 

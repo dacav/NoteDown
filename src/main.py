@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 
 import sys
-import conf
-from gui import *
+
+from core import *
+import gui
 
 def main (argv=None):
     if not argv: argv = sys.argv
 
-    # Here load from configuration file
     cfg = conf.Cfg()
-    cfg.toolk = 'gtk'
+    cfg.toolkit = 'gtk'
 
-    gui = notedown_gui.load(cfg)
-    return gui.enter_loop()
+    gui.load(cfg).enter_loop()
+
+    return 0
 
 if __name__ == '__main__':
     sys.exit(main())

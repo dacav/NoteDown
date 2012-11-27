@@ -5,9 +5,6 @@ class NoteDownGui:
     Generalization of the gui, whatever toolkit will be used.
     '''
 
-    pass
+    def enter_loop ():
+        pass
 
-def load (conf):
-    if conf.toolk == 'gtk':
-        from . import gtk
-        return gtk.Main(conf)
