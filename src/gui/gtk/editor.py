@@ -4,8 +4,6 @@ from gi.repository import Gtk, Pango, GObject
 
 class Editor (Gtk.TextView) :
 
-    class Foo : pass
-
     __gsignals__ = {
         'format-update' : (GObject.SIGNAL_RUN_LAST, None, tuple())
     }
@@ -48,7 +46,7 @@ class Editor (Gtk.TextView) :
 
         return (start, cur)
 
-    def set_format (self, fmt, val):
+    def format_set (self, fmt, val):
         bounds = self.buffer.get_selection_bounds()
         if bounds:
             start, end = bounds
@@ -58,3 +56,9 @@ class Editor (Gtk.TextView) :
             self.buffer.apply_tag_by_name(fmt, start, end)
         else:
             self.buffer.remove_tag_by_name(fmt, start, end)
+
+    def format_disable (self, _, fmt):
+        self.format_set(fmt, False)
+
+    def format_enable (self, _, fmt):
+        self.format_set(fmt, True)
