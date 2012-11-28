@@ -20,8 +20,7 @@ class Editor (Gtk.TextView) :
         self.buffer = buf
 
         emit = lambda *x : self.emit('format-update')
-        self.connect("move-cursor", emit)
-        self.connect("button-release-event", emit)
+        buf.connect("mark-set", emit)
 
     def current_iter (self):
         return self.buffer.get_iter_at_mark(self.buffer.get_insert())
@@ -56,8 +55,6 @@ class Editor (Gtk.TextView) :
         else:
             start, end = self.current_word()
         if val:
-            print("applying", fmt)
             self.buffer.apply_tag_by_name(fmt, start, end)
         else:
-            print("removing", fmt)
             self.buffer.remove_tag_by_name(fmt, start, end)
