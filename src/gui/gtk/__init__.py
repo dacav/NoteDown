@@ -18,6 +18,8 @@ class Main (Gtk.Window, notedown_gui.NoteDownGui) :
         edit.connect('format-update', tbar.update)
         tbar.connect('format-enable', edit.format_enable)
         tbar.connect('format-disable', edit.format_disable)
+        tbar.connect('save', self.save)
+        tbar.connect('save-as', self.save_as)
 
         vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         vbox.add(tbar)
@@ -29,3 +31,9 @@ class Main (Gtk.Window, notedown_gui.NoteDownGui) :
         self.show_all()
         self.connect('delete-event', Gtk.main_quit)
         Gtk.main()
+
+    def save (self, *args):
+        print("savin'")
+
+    def save_as (self, *args):
+        print("savin' as")

@@ -6,7 +6,9 @@ class Toolbar (Gtk.Toolbar) :
 
     __gsignals__ = {
         'format-enable' : (GObject.SIGNAL_RUN_LAST, None, (str,)),
-        'format-disable' : (GObject.SIGNAL_RUN_LAST, None, (str,))
+        'format-disable' : (GObject.SIGNAL_RUN_LAST, None, (str,)),
+        'save' : (GObject.SIGNAL_RUN_LAST, None, tuple()),
+        'save-as' : (GObject.SIGNAL_RUN_LAST, None, tuple())
     }
 
     def __init__ (self):
@@ -19,6 +21,14 @@ class Toolbar (Gtk.Toolbar) :
         for (name, btn) in w.items():
             self.add(btn)
             btn.connect('clicked', self.set_format, name)
+
+        save = Gtk.ToolButton.new_from_stock(Gtk.STOCK_SAVE)
+        save.connect('clicked', lambda *x : self.emit('save'))
+        self.add(save)
+
+        save = Gtk.ToolButton.new_from_stock(Gtk.STOCK_SAVE_AS)
+        save.connect('clicked', lambda *x : self.emit('save-as'))
+        self.add(save)
 
         self.fmt_buttons = w
         self.updating = False
