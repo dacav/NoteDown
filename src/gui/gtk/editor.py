@@ -15,13 +15,15 @@ class Editor (Gtk.TextView) :
         buf.create_tag('bold', weight=Pango.Weight.BOLD)
         buf.create_tag('italic', style=Pango.Style.ITALIC)
         buf.create_tag('debug', background='yellow')
-        self.buffer = buf
+        buf.connect("mark-set", self.mark_set)
 
-        emit = lambda *x : self.emit('format-update')
-        buf.connect("mark-set", emit)
+        self.buffer = buf
 
     def current_iter (self):
         return self.buffer.get_iter_at_mark(self.buffer.get_insert())
+
+    def mark_set (self, *args):
+        self.emit('format-update')
 
     def get_formats (self):
         tags = self.current_iter().get_tags()
