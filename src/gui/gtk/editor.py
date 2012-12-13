@@ -59,8 +59,3 @@ class Editor (Gtk.TextView) :
         else:
             self.buffer.remove_tag_by_name(fmt, start, end)
 
-    def format_disable (self, _, fmt):
-        self.format_set(fmt, False)
-
-    def format_enable (self, _, fmt):
-        self.format_set(fmt, True)

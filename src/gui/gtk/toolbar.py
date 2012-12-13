@@ -33,9 +33,8 @@ class Toolbar (Gtk.Toolbar) :
         self.fmt_buttons = w
         self.updating = False
 
-    def update (self, editor):
+    def format_update (self, active):
         self.updating = True
-        active = editor.get_formats()
         for name, button  in self.fmt_buttons.items():
             button.set_active(name in active)
         self.updating = False
