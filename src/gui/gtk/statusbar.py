@@ -4,27 +4,17 @@ from gi.repository import Gtk
 from collections import defaultdict as ddict
 from operator import itemgetter as iget
 
-class SimpleStatusbar (Gtk.Statusbar) :
-
-    def __init__ (self):
-        super().__init__()
-        self.context = self.get_context_id('')
-
-    def set (self, text):
-        self.remove_all(self.context)
-        self.push(self.context, text)
-
-class FormatStatus (SimpleStatusbar) :
+class FormatStatus (Gtk.Label) :
 
     FORMATS = 'bold italic code'.split()
 
     def __init__ (self):
-        super().__init__()
+        super().__init__('')
         self.formats = ddict(lambda : False)
 
     def reload (self):
         flags = map(iget(0), filter(iget(1), self.formats.items()))
-        self.set(' '.join(flags))
+        self.set_text(' '.join(flags))
 
     def change (self, fmt, v, lock=False):
         self.formats[fmt] = v
@@ -43,7 +33,7 @@ class Statusbar (Gtk.Grid) :
         self.set_column_homogeneous(True)
 
         self.format_sb = FormatStatus()
-        self.attach(self.format_sb, 0, 0, 2, 1)
+        self.attach(self.format_sb, 2, 0, 1, 1)
 
     def format_set (self, fmt, v):
         self.format_sb.change(fmt, v)
